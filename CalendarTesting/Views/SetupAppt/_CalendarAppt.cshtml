@@ -1,0 +1,341 @@
+﻿<style>
+    table.Schedule thead tr td {
+        text-align: center;
+        font-weight: bold;
+        /*color: #FF8C00;*/
+    }
+
+    table.Schedule tbody tr td.Available {
+        height: 30px;
+        width: 35px;
+        border: 1px solid #1d85cd;
+        text-align: center;
+        font-weight: bold;
+        color: #1d85cd;
+    }
+
+        table.Schedule tbody tr td.Available:hover {
+            cursor: pointer;
+            color: white;
+            background-color: #1d85cd;
+        }
+
+    table.Schedule tbody tr td.Blocked {
+        height: 30px;
+        width: 35px;
+        border: 1px solid #1d85cd;
+        text-align: center;
+        font-weight: bold;
+        background-color: rgba(209,209,209,0.4);
+        color: rgb(209,209,209);
+    }
+
+        table.Schedule tbody tr td.Blocked:hover {
+            cursor: default;
+        }
+</style>
+
+<style>
+    table.ScheduleCal {
+        width: 100% !important;
+        /*border: 1px solid #1d85cd;*/
+    }
+
+        table.ScheduleCal thead tr td {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        table.ScheduleCal tbody tr {
+            border: 1px solid #1d85cd;
+        }
+
+            table.ScheduleCal tbody tr td {
+                /*width:  150px;*/
+                width: 200px;
+                color: #1d85cd;
+                height: 30px;
+                padding: 5px;
+            }
+
+                table.ScheduleCal tbody tr td:hover {
+                    cursor: pointer;
+                    background-color: #1d85cd;
+                    color: white !important;
+                }
+
+                table.ScheduleCal tbody tr td span.day {
+                    font-weight: bold;
+                }
+
+                table.ScheduleCal tbody tr td span.date {
+                    font-size: 12px;
+                }
+</style>
+
+<style>
+    table.CalendarDesign {
+        width: 100% !important;
+        margin-left: 20px;
+    }
+
+        table.CalendarDesign thead tr td {
+            text-align: center;
+        }
+
+        table.CalendarDesign thead tr td, table.CalendarDesign tbody tr td {
+            font-weight: bold;
+            padding-right: 10px;
+            vertical-align: top;
+        }
+
+    dl.AvailableDay {
+        margin-top: 0px;
+        list-style: none;
+    }
+
+        dl.AvailableDay dt.Ready {
+            /*Text*/
+            font-weight: bold;
+            text-align: center;
+            white-space: nowrap;
+            color: #1d85cd;
+            /*Box*/
+            /*width: 100%;*/
+            /*box-sizing: border-box;*/
+            border: 1px solid #1d85cd;
+            line-height: 1.3em;
+            margin-bottom: 10px;
+            padding: 7px 10px;
+            border-radius: 3px;
+        }
+
+            dl.AvailableDay dt.Ready:hover {
+                cursor: pointer;
+                color: white;
+                background-color: #1d85cd;
+                border: 1px solid #0a67a8;
+            }
+
+        dl.AvailableDay dt.Selected {
+            background-color: #1d85cd;
+        }
+
+        dl.AvailableDay dt.Blocked {
+            /*Text*/
+            font-weight: bold;
+            text-align: center;
+            white-space: nowrap;
+            color: #1d85cd;
+            border: 1px solid #1d85cd;
+            line-height: 1.3em;
+            margin-bottom: 10px;
+            padding: 7px 10px;
+            border-radius: 3px;
+            background-color: rgba(209,209,209,0.4);
+            color: rgb(209,209,209);
+        }
+
+            dl.AvailableDay dt.Blocked:hover {
+                cursor: default;
+            }
+</style>
+
+<script>
+    function getPreviousDate(_CurrentDate, days_remove)
+    {
+        var result_prev = new Date(_CurrentDate);
+        result_prev.setDate(result_prev.getDate() - days_remove);
+        return result_prev.getDate();
+    }
+    function getNextDate(_CurrentDate, days_added)
+    {
+        var result_next = new Date(_CurrentDate);
+        result_next.setDate(result_next.getDate() + days_added);
+        return result_next.getDate();
+    }
+    function setTdText(td_day, text_day)
+    {
+        $("#" + td_day).text(text_day);
+    }
+    function AddBlockTd(td_day)
+    {
+        $("#" + td_day).addClass("Blocked");
+    }
+    function RemoveBlockTd(td_day)
+    {
+        $("#" + td_day).removeClass("Blocked");
+    }
+    function RemoveAvailableTd(td_day)
+    {
+        $("#" + td_day).removeClass("Available");
+    }
+    @*$(document).ready(function ()
+    {
+        var correlative_day = 1;
+        var days_in_advance_count = 0;
+        var days_in_advance = 5;
+
+        var today = new Date();
+        /*Prueba adelantando el tiempo*/
+        today.setDate(today.getDate());
+
+        /*******************/
+        var current_week_day = today.getDay();
+        var month_day = today.getDate();
+        if (current_week_day == 0) { today.setDate(today.getDate() + 1); current_week_day = today.getDay(); month_day = today.getDate(); }
+        if (current_week_day == 6) { today.setDate(today.getDate() + 2); current_week_day = today.getDay(); month_day = today.getDate(); }
+
+        var _table = document.getElementById("DaysTable");
+        var table_week_day = 1;
+
+        for (var i = 1, row; row = _table.rows[i]; i++) {
+            for (var j = 0, col; col = row.cells[j]; j++)
+            {
+                table_week_day = col.id.substr(col.id.length - 1, 1);
+                /*First Row*/
+                if (i == 1) {
+                    /*Current*/
+                    if (table_week_day == current_week_day) {
+                        days_in_advance_count++;
+                        setTdText(col.id, month_day);
+                    }
+
+                    /*Before*/
+                    if (table_week_day < current_week_day) {
+                        RemoveAvailableTd(col.id);
+                        AddBlockTd(col.id);
+                        setTdText(col.id, getPreviousDate(today, current_week_day - table_week_day));
+                    }
+
+                    /*After*/
+                    if (table_week_day > current_week_day) {
+                        days_in_advance_count++;
+                        setTdText(col.id, getNextDate(today, table_week_day - current_week_day));
+                        if (days_in_advance_count > days_in_advance) { RemoveAvailableTd(col.id);AddBlockTd(col.id); }
+                    }
+                }
+                /*Second Row*/
+                if (i == 2)
+                {
+                    days_in_advance_count++;
+                    setTdText(col.id, getNextDate(today, j + (7 - today.getDay())+1));
+                    if (days_in_advance_count > days_in_advance) { RemoveAvailableTd(col.id);AddBlockTd(col.id); }
+                }
+            }
+        }
+
+    });
+
+    /**/
+    $(document).ready(function ()
+    {
+        $("#DaysTable").on("click", "td.Available", function ()
+        {
+            $(this).siblings().removeAttr('style'); //This is for the siblings in the same row
+            $(this).parent().siblings("tr").find("td").removeAttr('style'); //This is for the siblings in the other row
+            $(this).css({ "background-color": "#1d85cd", "border-color": "#0a67a8", "color": "white" }); //This is for the new selected date
+
+            var _day = $(this).text();
+            var _url = "@Url.Action("GetAvailableHours", "setup_appt")?day=" + _day;
+            '@(Url.Action("GetAvailableHours","setup_appt", null, Request.Url.Scheme))?day=' + _day)
+            $("#HoursTable").load(_url);
+
+            alert(_day);
+
+
+        });
+    });*@
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#CalendarDayList").on("click", "dt.Ready", function () {
+            $(this).siblings().removeAttr('style');
+            $(this).css({ "background-color": "#1d85cd", "border-color": "#0a67a8", "color": "white" });
+
+            var _day = $(this).find('input:hidden').val();
+            //var _month =    $(this).find('input:text').val();
+            //var _year =     $(this).find('input:text').val();
+
+            //if(_day > 0){}
+            @*var _url = "@Url.Action("GetAvailableHours", "setup_appt")?day=" + _day;
+            '@(Url.Action("GetAvailableHours","setup_appt", null, Request.Url.Scheme))?day=' + _day);
+            $("#HoursTable").load(_url);*@
+
+            alert(_day);
+        });
+    });
+</script>
+<input type="hidden" id="SelectedDay" name="SelectedDay" />
+
+@*<table id="DaysTable" class="Schedule">
+        <thead>
+
+            <tr>
+                <td id="1">MON</td>
+                <td id="2">TUE</td>
+                <td id="3">WED</td>
+                <td id="4">THU</td>
+                <td id="5">FRI</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="Available" id="week_1_1">0</td>
+                <td class="Available" id="week_1_2">0</td>
+                <td class="Available" id="week_1_3">0</td>
+                <td class="Available" id="week_1_4">0</td>
+                <td class="Available" id="week_1_5">0</td>
+            </tr>
+            <tr>
+                <td class="Available" id="week_2_1">0</td>
+                <td class="Available" id="wekk_2_2">0</td>
+                <td class="Available" id="week_2_3">0</td>
+                <td class="Available" id="week_2_4">0</td>
+                <td class="Available" id="week_2_5">0</td>
+            </tr>
+        </tbody>
+    </table>*@
+@{
+    int screen_width_partial = Convert.ToInt32(TempData["globalWidth"].ToString());
+    if (screen_width_partial >= 769)
+    {
+        <table id="CalendarDay" class="CalendarDesign" width="100">
+            <thead>
+                <tr><td>Select an available day</td></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <dl id="CalendarDayList" class="AvailableDay">
+                            <dt class="Blocked"> <input type="hidden" value="25" />Monday, July 25 (Today)</dt>
+                            <dt class="Ready"> <input type="hidden" value="26" />Tuesday, July 26</dt>
+                            <dt class="Ready"> <input type="hidden" value="27" />Wednesday, July 27</dt>
+                            <dt class="Ready"> <input type="hidden" value="28" />Thursday, July 28</dt>
+                            <dt class="Ready"> <input type="hidden" value="29" />Friday, July 29</dt>
+                        </dl>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else
+    {
+
+        @Html.DevExpress().ComboBox(settingsDay =>
+        {
+            settingsDay.Name = "cmbDay";
+            settingsDay.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+            settingsDay.Properties.DropDownStyle = DropDownStyle.DropDown;
+            settingsDay.Properties.Items.Add("Monday, July 25").Selected = true;
+            settingsDay.Properties.Items.Add("Thuesday, July 26");
+            settingsDay.Properties.Items.Add("Wednesday, July 27");
+            settingsDay.Properties.Items.Add("Thrusday, July 27");
+            settingsDay.Properties.Items.Add("Friday, July 28");
+
+            settingsDay.SelectedIndex = 0;
+        }).GetHtml()
+
+    }
+}

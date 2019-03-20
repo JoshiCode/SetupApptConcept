@@ -1,0 +1,140 @@
+﻿@model StepsWizard
+
+
+<div class="ShowWords">
+    @if (Model == StepsWizard.Profile || Model == StepsWizard.Business || Model == StepsWizard.Options || Model == StepsWizard.GetStarted) { 
+        <ul class="wizardbar">
+            <li id="LiProfile" class="wizardbar-item">
+                PROFILE
+            </li>
+            <li id="LiBusinnes" class="wizardbar-item">
+                BUSINESS
+            </li>
+            <li id="LiOptions" class="wizardbar-item">
+                OPTIONS
+            </li>
+            <li id="LiGetstarted" class="wizardbar-item">
+                GET STARTED
+            </li>
+        </ul>
+    }
+    @if (Model == StepsWizard.LetsGetStarted || Model == StepsWizard.SetUpSpecialist || Model == StepsWizard.Done)
+    {
+    <ul class="wizardbar">
+        <li id="LiLetsgetstarted" class="wizardbar-item">
+            LET'S GET STARTED
+        </li>
+        <li id="LiSetupspecialist" class="wizardbar-item">
+            SETUP SPECIALIST
+        </li>
+        <li id="LiSetupdone" class="wizardbar-item">
+            DONE
+        </li>
+    </ul>
+  }
+
+</div>
+<div class="ShowImages">
+    @if (Model == StepsWizard.Profile || Model == StepsWizard.Business || Model == StepsWizard.Options || Model == StepsWizard.GetStarted)
+    {
+        <ul class="wizardbar">
+            <li id="LiProfileImg" class="wizardbar-item">
+                <img height="12" src="../Content/Images/Icons/deal.png" />
+            </li>
+            <li id="LiBusinnesImg" class="wizardbar-item">
+                <img height="12" src="../Content/Images/Icons/deal.png" />
+            </li>
+            <li id="LiOptionsImg" class="wizardbar-item">
+                <img height="12" src="../Content/Images/Icons/deal.png" />
+            </li>
+            <li id="LiGetstartedImg" class="wizardbar-item">
+                <img height="12" src="../Content/Images/Icons/deal.png" />
+            </li>
+        </ul>
+    }
+    @if (Model == StepsWizard.LetsGetStarted || Model == StepsWizard.SetUpSpecialist || Model == StepsWizard.Done)
+    {
+        <ul class="wizardbar">
+            <li id="LiLetsgetstartedImg" class="wizardbar-item">
+                <img height="12" src="../Content/Images/Icons/deal.png" />
+            </li>
+            <li id="LiSetupspecialistImg" class="wizardbar-item">
+                <img height="12" src="../Content/Images/Icons/deal.png" />
+            </li>
+            <li id="LiSetupdoneImg" class="wizardbar-item">
+                <img height="12" src="../Content/Images/Icons/deal.png" />
+            </li>
+        </ul>
+    }
+</div>
+
+@if (Model == StepsWizard.Profile)
+{
+    <script>
+        $("#LiProfile").addClass("current");
+        $("#LiProfileImg").addClass("current");
+    </script>
+}
+@if (Model == StepsWizard.Business)
+{
+    <script>
+        
+        $("#LiBusinnes").addClass("current");
+        $("#LiBusinnes").prevAll().addClass("previous");
+
+        $("#LiBusinnesImg").addClass("current");
+        $("#LiBusinnesImg").prevAll().addClass("previous");
+    </script>
+}
+@if(Model ==  StepsWizard.Options)
+{
+    <script>
+        $("#LiOptions").addClass("current");
+        $("#LiOptions").prevAll().addClass("previous");
+
+        $("#LiOptionsImg").addClass("current");
+        $("#LiOptionsImg").prevAll().addClass("previous");
+    </script>
+}
+@if (Model == StepsWizard.GetStarted)
+{
+    <script>
+        $("#LiGetstarted").addClass("current");
+        $("#LiGetstarted").prevAll().addClass("previous");
+
+        $("#LiGetstartedImg").addClass("current");
+        $("#LiGetstartedImg").prevAll().addClass("previous");
+
+    </script>
+}
+@if(Model == StepsWizard.LetsGetStarted)
+{
+    <script>
+        $("#LiLetsgetstarted").addClass("current");
+        $("#LiLetsgetstarted").prevAll().addClass("previous");
+
+        $("#LiLetsgetstartedImg").addClass("current");
+        $("#LiLetsgetstartedImg").prevAll().addClass("previous");
+    </script>
+}
+@if(Model == StepsWizard.SetUpSpecialist)
+{
+     <script>
+         $("#LiSetupspecialist").addClass("current");
+         $("#LiSetupspecialist").prevAll().addClass("previous");
+
+         $("#LiSetupspecialistImg").addClass("current");
+         $("#LiSetupspecialistImg").prevAll().addClass("previous");
+    </script>
+}
+@if(Model == StepsWizard.Done)
+{
+    <script>
+        $("#LiSetupdone").addClass("current");
+        $("#LiSetupdone").prevAll().addClass("previous");
+
+        $("#LiSetupdoneImg").addClass("current");
+        $("#LiSetupdoneImg").prevAll().addClass("previous");
+
+    </script>
+}

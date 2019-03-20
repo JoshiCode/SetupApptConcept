@@ -1,0 +1,122 @@
+﻿
+<style>
+    table.Hours thead tr td, table.Hours tbody tr td {
+        text-align: center;
+        font-weight: bold;
+        padding-right: 10px;
+        vertical-align: top;
+    }
+
+    dl.AvaiableTime {
+        margin-top: 0px;
+        /*padding-left: 2px;*/
+        list-style: none;
+        /*max-width: 500px;*/
+    }
+
+        dl.AvaiableTime dt {
+            /*Text*/
+            font-weight: bold;
+            text-align: center;
+            white-space: nowrap;
+            color: #1d85cd;
+            /*Box*/
+            /*width: 100%;*/
+            /*box-sizing: border-box;*/
+            border: 1px solid #1d85cd;
+            line-height: 1.3em;
+            margin-bottom: 10px;
+            padding: 7px 10px;
+            border-radius: 3px;
+        }
+
+            dl.AvaiableTime dt:hover {
+                cursor: pointer;
+                color: white;
+                background-color: #1d85cd;
+                border: 1px solid #0a67a8;
+            }
+
+            dl.AvaiableTime dt.Selected {
+                background-color: #1d85cd;
+            }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $(".AvaiableTime").on("click", "dt", function () {
+            $(this).siblings().removeAttr("style");
+            $(".AvaiableTime").find("dt").removeAttr("style");
+            $(this).css({ "background-color": "#1d85cd", "color": "white", "border-color": "#0a67a8" });
+
+        });
+    });
+</script>
+
+
+@{
+    int screen_width_partialHour = Convert.ToInt32(TempData["globalWidth"].ToString());
+    if (screen_width_partialHour >= 769)
+    {
+        <table id="HoursTable" class="Hours">
+            <thead>
+                <tr><td>Morning</td><td>Afternoon</td><td></td></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+
+                        <dl class="AvaiableTime">
+                            <dt>09:30 am</dt>
+                            <dt>10:00 am</dt>
+                            <dt>10:30 am</dt>
+                            <dt>11:00 am</dt>
+                            <dt>11:30 am</dt>
+                        </dl>
+                    </td>
+                    <td>
+                        <dl class="AvaiableTime">
+                            <dt>12:00 pm</dt>
+                            <dt>12:30 pm</dt>
+                            <dt>01:00 pm</dt>
+                            <dt>01:30 pm</dt>
+                            <dt>02:00 pm</dt>
+                        </dl>
+                    </td>
+                    <td>
+                        <dl class="AvaiableTime">
+                            <dt>02:30 pm</dt>
+                            <dt>03:00 pm</dt>
+                            <dt>03:30 pm</dt>
+                            <dt>04:00 pm</dt>
+                            <dt>04:30 pm</dt>
+                        </dl>
+                    </td>
+                    <td>
+                        <dl class="AvaiableTime">
+                            <dt>05:00 pm</dt>
+                            <dt>05:30 pm</dt>
+
+                        </dl>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else
+    {
+        @Html.DevExpress().ComboBox(settingsHour =>
+   {
+       settingsHour.Name = "cmbHour";
+       settingsHour.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+       settingsHour.Properties.DropDownStyle = DropDownStyle.DropDown;
+       settingsHour.Properties.Items.Add("09:30 am");
+       settingsHour.Properties.Items.Add("10:00 am");
+       settingsHour.Properties.Items.Add("10:30 am");
+       settingsHour.Properties.Items.Add("11:00 am");
+
+       settingsHour.SelectedIndex = 0;
+
+   }).GetHtml()
+    }
+}

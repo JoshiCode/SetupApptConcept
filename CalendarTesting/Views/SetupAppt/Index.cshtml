@@ -1,0 +1,296 @@
+﻿<style>
+    @@media only screen and (max-width: 900px) .period .fraction .day {
+        padding: 2px !important;
+    }
+</style>
+<style>
+    #frmSetAppt {
+        position: relative;
+    }
+
+    #frmSetAppt_8 {
+        position: absolute;
+        bottom: 6%;
+        right: 0;
+        left: 0;
+    }
+</style>
+<style>
+    #frmSetAppt_2_1 .dxeFocused_Moderno {
+        border: none;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+    }
+</style>
+
+
+
+<script>
+    function IsBestNumberToReach(s, e) {
+        var YesOrNO = isPreviousBestNumber.GetValue();
+        var groupNewNumber = frmSetAppt.GetItemByName('groupPhone');
+        if (YesOrNO == "True") {
+            groupNewNumber.SetVisible(false);
+        }
+        if (YesOrNO == "False") {
+            groupNewNumber.SetVisible(true);
+        }
+    }
+
+    window.onload = function () {
+
+    }
+</script>
+<script>
+    function autoResize(id) {
+        var newheight;
+        var newwidth;
+
+        if (document.getElementById) {
+            newheight = document.getElementById(id).contentWindow.document.body.scrollHeight;
+            newwidth = document.getElementById(id).contentWindow.document.body.scrollWidth;
+        }
+
+        document.getElementById(id).height = (newheight) + "px";
+        document.getElementById(id).width = (newwidth) + "px";
+    }
+    function ReloadDate() {
+        $(document).ready(function () {
+            //var id_var = "hola";
+        });
+    }
+</script>
+<script>
+    $().ready(function () {
+        $("#formaSetAppt").validate({
+            showErrors: function (errorMap, errorList) {
+            },
+            rules: {
+            },
+            messages: {
+            },
+            submitHandler: function (form) {
+                var data = {};
+                data.option = {};
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("SaveSetUpApptgData", "setup_appt")',
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    beforeSend: function () {
+                        //loadingPanel.Show();
+                    },
+                    success: function (data) {
+                        window.location.href = data.url;
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+
+
+@using (Html.BeginForm(null, null, System.Web.Mvc.FormMethod.Post, new { Id = "formaSetAppt" }))
+{
+    int screen_width = Convert.ToInt32(TempData["globalWidth"].ToString());
+    <div style="width: 100%">
+        @Html.Partial("RegularWizard", StepsWizard.SetUpSpecialist)
+        <table class="OS_table_profile" style="width: 100%; height: 100%;">
+            <tr>
+                <td>
+                    @Html.DevExpress().FormLayout(settings =>
+                    {
+                        settings.Name = "frmSetAppt";
+                        settings.AlignItemCaptionsInAllGroups = true;
+                        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                        settings.Height = System.Web.UI.WebControls.Unit.Pixel(700);
+                        settings.SettingsAdaptivity.AdaptivityMode = FormLayoutAdaptivityMode.SingleColumnWindowLimit;
+                        settings.SettingsAdaptivity.SwitchToSingleColumnAtWindowInnerWidth = (screen_width >= 769) ? 400 : 1000;
+                        settings.ShowItemCaptionColon = false;
+
+                        settings.Items.Add(itemsetting =>
+                        {
+                            itemsetting.Caption = String.Empty;
+                            itemsetting.ShowCaption = DefaultBoolean.False;
+
+                            itemsetting.SetNestedContent(() =>
+                            {
+                                ViewContext.Writer.Write("<div class = \"label_important_title\">One Last Thing</div>");
+                                ViewContext.Writer.Write("<div class = \"label_important_sub_title\">Schedule your setup call </div>");
+                                ViewContext.Writer.Write("<hr class =\"title_line\">");
+                            });
+
+                        });
+
+                        settings.Items.AddGroupItem(group =>
+                        {
+                            group.Caption = String.Empty;
+                            group.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Top;
+                            group.GroupBoxDecoration = GroupBoxDecoration.None;
+                            //group.ColCount = 2;
+
+                            group.Items.Add(itemsetting =>
+                            {
+                                itemsetting.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+                                itemsetting.ShowCaption = DefaultBoolean.False;
+                                itemsetting.SetNestedContent(() =>
+                                {
+                                    ViewContext.Writer.Write("<p style=\"font-size:16px\"><b>" + @"Your account is now being processed, however we would like to schedule a time to review instructions and the
+                                                                    handling of your calls." + "</b></p>");
+                                    ViewContext.Writer.Write
+                                       (
+                                       "<p>" + @"The next step is to have a setup call with one of our setup specialists, what time would be best for you?" + "</p>"
+                                       );
+                                });
+                            });
+
+                            group.Items.Add(itemsetting =>
+                            {
+                                itemsetting.Width = System.Web.UI.WebControls.Unit.Percentage(50);
+                                itemsetting.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+                                itemsetting.ShowCaption = DefaultBoolean.False;
+                                itemsetting.SetNestedContent(() =>
+                                {
+
+                                    Html.RenderPartial("_CalendarAppt");
+                                });
+                            });
+
+                            group.Items.Add(itemsetting =>
+                            {
+                                itemsetting.Width = System.Web.UI.WebControls.Unit.Percentage(50);
+                                itemsetting.HorizontalAlign = FormLayoutHorizontalAlign.Center;
+                                itemsetting.ShowCaption = DefaultBoolean.False;
+                                itemsetting.SetNestedContent(() =>
+                                {
+                                    Html.RenderPartial("_AvailableHours");
+                                });
+                            });
+                        });
+
+                        settings.Items.AddGroupItem(group =>
+                        {
+                            group.Caption = String.Empty;
+                            group.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Top;
+                            group.GroupBoxDecoration = GroupBoxDecoration.None;
+                            group.ColCount = 2;
+
+                            group.Items.Add(itemsetting =>
+                            {
+                                itemsetting.Caption = String.Empty;//DefaultBoolean.False;
+                                itemsetting.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                                itemsetting.NestedExtensionType = FormLayoutNestedExtensionItemType.Label;
+                                LabelSettings lbl = (LabelSettings)itemsetting.NestedExtensionSettings;
+                                lbl.Text = "<b style=\"font-size:16px\">Is the best number to reach you the number you previously provided, NPA-NXX-XXXX?</b>";
+                                lbl.EncodeHtml = false;
+                            });
+
+
+                            group.Items.Add(itemsetting =>
+                            {
+                                itemsetting.Width = System.Web.UI.WebControls.Unit.Percentage(50);
+                                itemsetting.ShowCaption = DefaultBoolean.False;
+                                itemsetting.HorizontalAlign = FormLayoutHorizontalAlign.Left;
+                                //itemsetting.Caption = "Is the best number to reach you the number you previously provided, NPA-NXX-XXXX?";
+                                //itemsetting.CaptionStyle.Font.Bold = true;
+
+
+                                itemsetting.NestedExtensionType = FormLayoutNestedExtensionItemType.RadioButtonList;
+
+                                RadioButtonListSettings rdisPreviousBestNumber = (RadioButtonListSettings)itemsetting.NestedExtensionSettings;
+                                rdisPreviousBestNumber.Name = "isPreviousBestNumber";
+
+                                rdisPreviousBestNumber.ControlStyle.Border.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
+
+                                rdisPreviousBestNumber.Properties.RepeatDirection = System.Web.UI.WebControls.RepeatDirection.Horizontal;
+                                rdisPreviousBestNumber.Properties.RepeatColumns = 2;
+                                rdisPreviousBestNumber.Properties.Items.Add("Yes", true).Selected = true;
+                                rdisPreviousBestNumber.Properties.Items.Add("No", false);
+
+                                rdisPreviousBestNumber.Properties.ClientSideEvents.SelectedIndexChanged = "IsBestNumberToReach";
+
+                            });
+                            group.Items.AddEmptyItem();
+                        });
+
+                        settings.Items.AddGroupItem(group =>
+                        {
+                            group.Name = "groupPhone";
+                            group.ShowCaption = DefaultBoolean.False;
+                            group.Caption = String.Empty;
+                            group.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Top;
+                            group.GroupBoxDecoration = GroupBoxDecoration.None;
+                            group.ColCount = 1;
+                            group.ClientVisible = false;
+                            group.Items.Add(itemsetting =>
+                            {
+                                itemsetting.Caption = String.Empty;
+                                itemsetting.Width = System.Web.UI.WebControls.Unit.Percentage(50);
+                                itemsetting.NestedExtensionType = FormLayoutNestedExtensionItemType.Label;
+                                LabelSettings lbl = (LabelSettings)itemsetting.NestedExtensionSettings;
+                                lbl.Text = "<b style=\"font-size:16px\">No problem what is the best number to reach you at?</b>";
+                                lbl.EncodeHtml = false;
+                            });
+
+                            group.Items.Add(itemsetting =>
+                            {
+                                itemsetting.Caption = String.Empty;
+                                itemsetting.Width = System.Web.UI.WebControls.Unit.Percentage(50);
+                                itemsetting.NestedExtensionType = FormLayoutNestedExtensionItemType.TextBox;
+                                TextBoxSettings txtBestNumberToReach = (TextBoxSettings)itemsetting.NestedExtensionSettings;
+                                txtBestNumberToReach.Name = "BestNumberToReach";
+                            });
+                            group.Items.AddEmptyItem();
+                        });
+
+                        settings.Items.AddEmptyItem();
+                        settings.Items.AddEmptyItem();
+                        settings.Items.AddEmptyItem();
+                        settings.Items.AddEmptyItem();
+                        //settings.Items.AddEmptyItem();
+                        //settings.Items.AddEmptyItem();
+                        //settings.Items.AddEmptyItem();
+                        //settings.Items.AddEmptyItem();
+                        //settings.Items.AddEmptyItem();
+
+                        settings.Items.AddGroupItem(group =>
+                        {
+                            group.Caption = String.Empty;
+                            group.SettingsItemCaptions.Location = LayoutItemCaptionLocation.Top;
+                            group.ColCount = 2;
+                            group.GroupBoxDecoration = GroupBoxDecoration.None;
+
+                            group.Items.AddEmptyItem();
+
+
+                            group.Items.Add(itemSetting =>
+                            {
+                                itemSetting.ColSpan = 2;
+
+                                itemSetting.Width = System.Web.UI.WebControls.Unit.Percentage(50);
+                                itemSetting.HorizontalAlign = FormLayoutHorizontalAlign.Right;
+                                itemSetting.ShowCaption = DefaultBoolean.False;
+                                itemSetting.NestedExtensionType = FormLayoutNestedExtensionItemType.Button;
+                                ButtonSettings btnProfileContinue = (ButtonSettings)itemSetting.NestedExtensionSettings;
+                                btnProfileContinue.Name = "btnProfileContinue";
+                                //btnProfileContinue.ClientSideEvents.Click = "btnProfileContinueOnClick";
+
+                                //settings.ControlStyle.CssClass = "Button";
+                                btnProfileContinue.Text = "<span style=\"color:transparent;\">_</span>Finish<span style=\"color:transparent;\">_</span>";
+
+                                btnProfileContinue.EncodeHtml = false;
+                                btnProfileContinue.UseSubmitBehavior = true;
+                            });
+                        });
+
+
+                    }).GetHtml()
+                </td>
+            </tr>
+        </table>
+    </div>
+}

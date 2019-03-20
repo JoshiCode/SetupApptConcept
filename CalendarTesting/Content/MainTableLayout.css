@@ -1,0 +1,172 @@
+﻿.TitleParagraph {
+    color: #0a67a8;
+    font-size:  20px; /*x-large;*/
+    font-weight: bold;
+}
+
+
+.title_line {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #d1d1d1;
+        margin: 1em 0;
+        padding-left: 2px;
+        padding-right:2px;
+}
+
+table.OS_table_profile {
+        
+        border-radius: 15px !important;
+        border-collapse: collapse !important;
+        padding: 5px !important;
+        background: white !important;
+        /*background-image: url('../Content/Images/back-img1.png') !important;*/
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+        
+        /*FIX PARA IE*/
+        min-height: 100px;
+        
+ }
+
+
+table.OS_table_profile  td.OS_LeftColumn {
+    width: 60%;
+}
+
+table.OS_table_profile  td.OS_RightColumn {
+    width: 40%;
+    border-left: 1px solid #d1d1d1;
+}
+
+table.OS_table_profile tr.OS_ThridRow{}
+
+table.OS_table_profile  tr.OS_FirstRow{}
+
+table.OS_table_profile tr.OS_SecondRow{}
+
+.label_important_title {
+        -webkit-box-sizing: content-box;
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
+        border: none;
+        font: normal normal bold 30px/1 "abel", Helvetica, sans-serif;
+        /*font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 30px;*/
+        color:black;
+        /*color: #0096ff;*/
+        text-align: center;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        padding-top: 10px;
+    }
+
+.label_important_sub_title {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    border: none;
+    font: normal normal bold 20px/1 "abel", Helvetica, sans-serif;
+    color: #000000;
+    text-align: center;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+        
+}
+
+.label_tag_control {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    border: none;
+    font-size:13px;
+    /*font: normal 15px/2 "average", Helvetica, sans-serif;*/
+    color: #000000;
+    text-align: center;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.potrait_image
+{
+    overflow:hidden;
+    width: 100%;
+    height: 100%;
+    max-width:none;
+    max-height:none;
+    background-image: url('../Content/Images/signupgraphic.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%; 
+    
+    /*background: url('../Content/Images/form.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;*/ 
+
+
+    border-top-right-radius: 15px; 
+    border-bottom-right-radius: 15px;
+    
+    
+}
+
+@media only screen and (max-device-width: 768px) 
+{
+    /**************************************************************/
+    .BodyParagraph
+    {
+        font-size: 13px;/*large;*/
+    }
+    /**************************************************************/
+    table.OS_table_profile  td.OS_RightColumn { display:none; }
+    table.OS_table_profile tr.OS_SecondRow{ /*display:block;*/ }
+
+    .potrait_image {
+        display: none;
+    }
+    /*************************************************************/
+    .label_important_title {
+        -webkit-box-sizing: content-box;
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
+        border: none;
+        font: normal normal bold 20px/1 "abel", Helvetica, sans-serif;
+        color:black;
+        /*color: #0096ff;*/
+        text-align: center;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        padding-top: 10px;
+    }
+    .dxflGroupCell_Moderno {
+        padding: 3px !important;
+    }
+}
+
+@media only screen and (min-device-width: 769px) {
+    
+    /*table.OS_table_profile  td.OS_RightColumn { display:block; }*/
+    table.OS_table_profile tr.OS_SecondRow{ display:none; }
+    /**************************************************************/
+    .BodyParagraph
+    {
+        font-size: 18px;/*large;*/
+    }
+}
+
+@media only screen and (min-device-width: 769px) and (max-width: 1014px){ /*769*/
+    table.OS_table_profile  tr.OS_ThridRow {display:inline;}
+    table.OS_table_profile  td.OS_RightColumn { display:none; }
+    table.OS_table_profile { width: 585px !important; margin:auto; }
+    dxflFormLayout_Moderno { width: 585px !important;}
+    
+    .ShowWords {
+    width: 585px;
+    margin: auto;
+}
+}
+
+@media only screen and (min-device-width: 769px) and (min-width: 1015px){ /*770*/
+    table.OS_table_profile  tr.OS_ThridRow {display:none;}
+    table.OS_table_profile  td.OS_RightColumn { display:table-cell; }
+}

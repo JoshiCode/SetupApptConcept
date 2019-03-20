@@ -1,0 +1,29 @@
+﻿@model HeaderViewRenderMode
+
+@if (Model == HeaderViewRenderMode.Title)
+{
+    <div class="templateTitle">
+        <img src="../Content/Images/logo_web_-25.png" height="30" />
+        @*@Html.ActionLink("Office Sense SIGN UP", "Index", "Home")*@
+    </div>
+}
+else
+{
+    if (Model == HeaderViewRenderMode.Full)
+    {
+        <div class="headerTop">
+            <div class="templateTitle">
+                <img src="../Content/Images/logo_web_-25.png" height="30" />
+                @*@Html.ActionLink("Free Trial", "Index", "Home")*@
+            </div>
+            <div class="loginControl">
+                @*@Html.Partial("LogOnPartialView")*@
+                @Html.Partial("HeaderLeftPartialView")
+            </div>
+        </div>
+    }
+
+    <div class="headerMenu">
+      
+    </div>
+}

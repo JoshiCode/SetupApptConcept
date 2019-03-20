@@ -1,0 +1,185 @@
+﻿<style>
+    .social_media_table {
+        float: right !important;
+        padding: 20px 20px 20px 20px !important;
+        width: 100% !important;
+    }
+
+
+    .social_media_table th, .social_media_table td {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+            border: none;
+            font: normal normal bold 17px/1 "abel", Helvetica, sans-serif;
+            /*color: #0096ff;*/
+            color: white;
+            text-align: left;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+        }
+
+    .informational_table {
+        float: left !important;
+        padding: 20px 20px 20px 20px !important;
+        width: 100% !important;
+    }
+
+   .informational_table tr {
+
+   }
+
+        .informational_table td {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+            border: none;
+            font: normal normal bold 15px/1 "abel", Helvetica, sans-serif;
+            color: #84919f;/*#5a5a5a;*/
+            text-align: left;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            padding: 2px 10px 2px 10px;
+        }
+
+        .informational_table th {
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+            border: none;
+            font: normal normal bold 17px/1 "abel", Helvetica, sans-serif;
+            color: #0096ff;
+            text-align: left;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            padding: 2px 10px 2px 10px;
+        }
+
+        .informational_table td a {
+            font: normal normal bold 15px/1 "abel", Helvetica, sans-serif;
+            color: #5a5a5a;
+            text-decoration: none;
+        }
+
+</style>
+
+<style> 
+    a.fb {
+        margin: 7px 6px 0 0;
+        float: left;
+        display: block;
+        width: 24px;
+        height: 24px;
+        background: url(../Content/Images/SocialMedia/topcontact-fb.png) no-repeat;
+    }
+
+    a.fb:hover {
+        background: url(../Content/Images/SocialMedia/topcontact-fb.png) 0 -24px no-repeat;
+    }
+
+    a.tw {
+        margin: 7px 6px 0 0;
+        float: left;
+        display: block;
+        width: 24px;
+        height: 24px;
+        background: url(../Content/Images/SocialMedia/topcontact-tw.png) no-repeat;
+    }
+
+    a.tw:hover {
+        background: url(../Content/Images/SocialMedia/topcontact-tw.png) 0 -25px no-repeat;
+    }
+
+    a.gp {
+        margin: 7px 6px 0 0;
+        float: left;
+        display: block;
+        width: 24px;
+        height: 24px;
+        background: url(../Content/Images/SocialMedia/topcontact-gp.png) no-repeat;
+    }
+
+    .gp:hover {
+        background: url(../Content/Images/SocialMedia/topcontact-gp.png) 0 -25px no-repeat;
+    }
+
+    a.ln {
+        margin: 7px 6px 0 0;
+        float: left;
+        display: block;
+        width: 24px;
+        height: 24px;
+        background: url(../Content/Images/SocialMedia/linkedin.png) no-repeat;
+    }
+
+    a.ln:hover {
+        background: url(../Content/Images/SocialMedia/linkedin.png) 0 -25px no-repeat;
+    }
+</style>
+
+<style>
+    .FooterPanel {
+        width: auto;
+        padding: 20px 20px 40px 20px;
+        background: url('../Content/Images/black_hdr.png') repeat;
+        color: Black;
+        height: auto;
+    }
+</style>
+
+
+@*<div  class="copyright">
+    <p>
+        @Html.DevExpress().Label(settings =>
+    {
+        settings.EncodeHtml = false;
+        settings.Text = "<b>" + DateTime.Now.Year + " &copy; Copyright by Office Sense</b>";
+    }).GetHtml()
+    </p>  
+</div>*@
+
+
+@*<div style="text-align:center; float:left; color: white;">
+    @Html.DevExpress().Label(settings =>
+    {
+        settings.EncodeHtml = false;
+        settings.Text = "<b>" + DateTime.Now.Year + " &copy; Copyright by Office Sense</b>";
+    }).GetHtml()
+</div>*@
+
+<div class="FooterPanel">
+    <div style="float:right">
+        <table class="social_media_table">
+
+            @*<tr>
+                    <th style="text-align:center" colspan="4">
+                        GET IN TOUCH!!!
+                    </th>
+                </tr>*@
+            <tr>
+                <td style="text-align: center; padding-top:7px">Get in Touch!   </td>
+                <td style="text-align: center">
+                    <a class="fb" href="">
+                        @*<img class="fb" style="border: 0px; width: 24px; height: 24px; margin: 7px 6px 0 0;" alt="Facebook"  />*@
+                    </a>
+                </td>
+                <td style="text-align: center">
+                    <a class="tw" href="">
+                        @*<img style="border: 0px" alt="Twitter" src="../Content/Images/SocialMedia/twitter_30.png" />*@
+                    </a>
+                </td>
+                <td style="text-align: center">
+                    <a class="gp" href="">
+                        @*<img style="border: 0px" alt="Google" src="../Content/Images/SocialMedia/google_30.png" />*@
+                    </a>
+                </td>
+                <td style="text-align: center">
+                    <a class="ln" href="">
+                        @*<img style="border: 0px" alt="LinkedIn" src="../Content/Images/SocialMedia/linkedin_30.png" />*@
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
